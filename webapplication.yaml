@@ -1,0 +1,32 @@
+- name: deploy a web application
+  hosts: db_and_web_server1
+  vars:
+
+  tasks:
+    - name: install all required dependencies
+      yum:
+       name: "{{ item }}"
+       state: present
+      with_items:
+          - "epel-release"
+          - "python"
+          - "python-devel"
+
+
+    - name: Install pip
+      yum:
+        name: "python-pip"
+        state: present
+
+    #- name: Install required Python libraries
+    #  pip:
+    #    name: "{{ item }}"
+    #    state: present
+    #  with_items:
+    #    - "flask"
+    #    - "flask-mysql"
+
+    - include: tasks/deploy_db.yaml
+    - include: tasks/deploy_web.yaml
+
+     

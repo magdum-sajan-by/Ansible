@@ -1,0 +1,15 @@
+tasks:
+  - name: install all required dependencies
+    yum:
+     name: "{{ item }}"
+     state: present
+    with_items:
+        - "epel-release"
+        - "python"
+        - "python-devel"
+
+
+  - name: Install pip
+    yum:
+      name: "python-pip"
+      state: present
